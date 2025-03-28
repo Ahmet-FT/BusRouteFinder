@@ -1,0 +1,50 @@
+Daha komforlu bir ulaşım için sadece tramvay kullanarak konumunuza ulaşabilirsiniz.
+0.02km -> tram_otogar -> tram_yahyakaptan -> 1.69km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(2.50 * 0.75 * 0.90 = 1.69 tl)
+toplam Süre: (5.00 dk)
+
+
+Sadece otobüs kullanarak konumunuza ulaşabilirsiniz.
+0.00km -> bus_otogar -> bus_sekapark -> bus_yahyakaptan -> 1.71km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(5.50 * 0.75 * 0.90 = 3.71 tl)
+toplam Süre: (18.00 dk)
+
+
+Otobüsten tramvaya aktarma kullanmak isterseniz en ucuz yolu kullanabilirsiniz.
+0.00km -> bus_otogar -> tram_otogar -> tram_yahyakaptan -> 1.69km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(3.00 * 0.75 * 0.90 = 2.03 tl)
+toplam Süre: (7.00 dk)
+
+
+Tramvaydan otobüse aktarma kullanmak isterseniz en ucuz yolu kullanabilirsiniz.
+0.02km -> tram_otogar -> tram_yahyakaptan -> bus_yahyakaptan -> 1.71km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(2.50 * 0.75 * 0.90 = 1.69 tl)
+toplam Süre: (7.00 dk)
+
+
+Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.
+0.00km -> bus_otogar -> tram_otogar -> tram_yahyakaptan -> 1.69km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(3.00 * 0.75 * 0.90 = 2.03 tl)
+toplam Süre: (7.00 dk)
+
+
+Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.
+0.02km -> tram_otogar -> tram_yahyakaptan -> bus_yahyakaptan -> 1.71km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(2.50 * 0.75 * 0.90 = 1.69 tl)
+toplam Süre: (7.00 dk)
+
+
+En konforlu ulaşım için sadece taxi ile seyahat.
+(10.00 + 1.69 * 4.00 = 16.75)
+
+
+toplam Süre: (0.04 dk)
+
+
+
