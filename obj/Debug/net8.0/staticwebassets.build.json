@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "uXSMj2zA9Mpi/vWSTNST6JSI9C1fkEhziJeN0kdqtWY=",
+  "Source": "BusRouteFinder",
+  "BasePath": "_content/BusRouteFinder",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

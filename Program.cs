@@ -32,14 +32,12 @@ app.MapGet("/Bus", () =>
 {
 
     FindWay find = new FindWay();
-    find.FindRoutes(40.78259, 29.94628, 40.7716, 29.9601, "Ogrenci", "Kent Kart");// dönen değer List<PathResult2> listesi 
+    List<PathResult2> response = find.FindRoutes(40.78259, 29.94628, 40.7716, 29.9601, "Ogrenci", "Kent Kart");// dönen değer List<PathResult2> listesi 
     /*
     listenin içindeki nesneler Vehiclede tanımlı PathResult2 classı içinde
     */
-
-
-    var forecast =  "";
-    return forecast;
+    return response[0].Path[0].Id;
+    
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
