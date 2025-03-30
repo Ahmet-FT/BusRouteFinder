@@ -171,93 +171,178 @@ public class FindWay
         tram2BusPathShortestTime.message += "Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.\n";
 
         List<PathResult2> paths = new List<PathResult2>();
-        paths.Add(onlyTramPath);
-        paths.Add(onlyBusPath);
-        paths.Add(bus2TramPath);
-        paths.Add(tram2BusPath);
-        paths.Add(bus2TramPathShortestTime);
-        paths.Add(tram2BusPathShortestTime);
 
-
+        if(onlyTramPath.PathFound)
+        {
+            paths.Add(onlyTramPath);
+        }
+        if(onlyBusPath.PathFound)
+        {
+            paths.Add(onlyBusPath);
+        }
+        if(bus2TramPath.PathFound)
+        {
+            paths.Add(bus2TramPath);
+        }
+        if(tram2BusPath.PathFound)
+        {
+            paths.Add(tram2BusPath);
+        }
+        if(bus2TramPathShortestTime.PathFound)
+        {
+            paths.Add(bus2TramPathShortestTime);
+        }
+        if(tram2BusPathShortestTime.PathFound)
+        {
+            paths.Add(tram2BusPathShortestTime);
+        }
+    
 
 
         if (maxWalkDistance <= tramStartDistance)
         {
-            onlyTramPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
-            tram2BusPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
-            tram2BusPathShortestTime.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
+            if(onlyTramPath.PathFound)
+            {
+                onlyTramPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
+            }
+            if(tram2BusPath.PathFound)
+            {
+                tram2BusPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+            if(tram2BusPathShortestTime.PathFound)
+            {
+                tram2BusPathShortestTime.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramStartDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+
         }
-        if (maxWalkDistance <= tramEndDistance )
+        if (maxWalkDistance <= tramEndDistance  && onlyTramPath.PathFound)
         {
-            onlyTramPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n";
-            bus2TramPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n";
-            bus2TramPathShortestTime.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n";
+            if(onlyTramPath.PathFound)
+            {
+                onlyTramPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n";
+
+            }
+            if(bus2TramPath.PathFound)
+            {
+                bus2TramPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+            if(bus2TramPathShortestTime.PathFound)
+            {
+                bus2TramPathShortestTime.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {tramEndDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (tramEndDistance * taxi.CostPerKm):0.00}\n"; 
+            }
         }
-        if(maxWalkDistance <= stopStartDistance)
+        if(maxWalkDistance <= stopStartDistance && onlyTramPath.PathFound)
         {
-            onlyBusPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
-            bus2TramPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
-            bus2TramPathShortestTime.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
+            if(onlyBusPath.PathFound)
+            {
+                onlyBusPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
+
+            }
+            if(bus2TramPath.PathFound)
+            {
+                bus2TramPath.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+            if(bus2TramPathShortestTime.PathFound)
+            {
+                bus2TramPathShortestTime.message += $"başlangıç durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee} + {stopStartDistance} * {taxi.CostPerKm} = { taxi.OpeningFee + (stopStartDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
         }
-        if(maxWalkDistance <= stopEndDistance)
+        if(maxWalkDistance <= stopEndDistance  && onlyTramPath.PathFound)
+        {   
+            if(onlyBusPath.PathFound)
+            {
+                onlyBusPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+            if(tram2BusPath.PathFound)
+            {
+                tram2BusPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+            if(tram2BusPathShortestTime.PathFound)
+            {
+                tram2BusPathShortestTime.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
+                
+            }
+        }
+
+
+        if(onlyTramPath.PathFound)
         {
-            onlyBusPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
-            tram2BusPath.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
-            tram2BusPathShortestTime.message += $"bitiş durağı {maxWalkDistance:0.00}km den fazla olduğundan taxi kullanmalısınız\n{taxi.OpeningFee:0.00} + {stopEndDistance:0.00} * {taxi.CostPerKm:0.00} = { taxi.OpeningFee + (stopEndDistance * taxi.CostPerKm):0.00}\n";
+            onlyTramPath.message += $"{tramStartDistance:0.00}km -> ";
+            foreach (var station in onlyTramPath.Path)
+            {
+                onlyTramPath.message += $"{station.Id} -> ";
+
+            }
+            onlyTramPath.message += $"{tramEndDistance:0.00}km \n";
         }
 
-        onlyTramPath.message += $"{tramStartDistance:0.00}km -> ";
-        foreach (var station in onlyTramPath.Path)
+        if(onlyBusPath.PathFound)
         {
-            onlyTramPath.message += $"{station.Id} -> ";
-    
+            onlyBusPath.message += $"{stopStartDistance:0.00}km -> ";
+            foreach (var stop in onlyBusPath.Path)
+            {
+                onlyBusPath.message += $"{stop.Id} -> ";
+
+            }
+            onlyBusPath.message += $"{stopEndDistance:0.00}km \n";
         }
-        onlyTramPath.message += $"{tramEndDistance:0.00}km \n";
 
-
-        onlyBusPath.message += $"{stopStartDistance:0.00}km -> ";
-        foreach (var stop in onlyBusPath.Path)
+        if(bus2TramPath.PathFound)
         {
-            onlyBusPath.message += $"{stop.Id} -> ";
-    
+            bus2TramPath.message += $"{stopStartDistance:0.00}km -> ";
+            foreach (var stop in bus2TramPath.Path)
+            {
+                bus2TramPath.message += $"{stop.Id} -> ";
+
+            }
+            bus2TramPath.message += $"{tramEndDistance:0.00}km \n";
         }
-        onlyBusPath.message += $"{stopEndDistance:0.00}km \n";
 
-
-        bus2TramPath.message += $"{stopStartDistance:0.00}km -> ";
-        foreach (var stop in bus2TramPath.Path)
+        if(tram2BusPath.PathFound)
         {
-            bus2TramPath.message += $"{stop.Id} -> ";
-    
+            tram2BusPath.message += $"{tramStartDistance:0.00}km -> ";
+            foreach (var stop in tram2BusPath.Path)
+            {
+                tram2BusPath.message += $"{stop.Id} -> ";
+
+            }
+            tram2BusPath.message += $"{stopEndDistance:0.00}km \n";
         }
-        bus2TramPath.message += $"{tramEndDistance:0.00}km \n";
 
-
-        tram2BusPath.message += $"{tramStartDistance:0.00}km -> ";
-        foreach (var stop in tram2BusPath.Path)
+        if(bus2TramPathShortestTime.PathFound)
         {
-            tram2BusPath.message += $"{stop.Id} -> ";
-    
+            bus2TramPathShortestTime.message += $"{stopStartDistance:0.00}km -> ";
+            foreach (var stop in bus2TramPathShortestTime.Path)
+            {
+                bus2TramPathShortestTime.message += $"{stop.Id} -> ";
+
+            }
+            bus2TramPathShortestTime.message += $"{tramEndDistance:0.00}km \n";
         }
-        tram2BusPath.message += $"{stopEndDistance:0.00}km \n";
 
-
-        bus2TramPathShortestTime.message += $"{stopStartDistance:0.00}km -> ";
-        foreach (var stop in bus2TramPathShortestTime.Path)
+        if(tram2BusPathShortestTime.PathFound)
         {
-            bus2TramPathShortestTime.message += $"{stop.Id} -> ";
-    
+            tram2BusPathShortestTime.message += $"{tramStartDistance:0.00}km -> ";
+            foreach (var stop in tram2BusPathShortestTime.Path)
+            {
+                tram2BusPathShortestTime.message += $"{stop.Id} -> ";
+
+            }
+            tram2BusPathShortestTime.message += $"{stopEndDistance:0.00}km \n";
         }
-        bus2TramPathShortestTime.message += $"{tramEndDistance:0.00}km \n";
 
 
-        tram2BusPathShortestTime.message += $"{tramStartDistance:0.00}km -> ";
-        foreach (var stop in tram2BusPathShortestTime.Path)
-        {
-            tram2BusPathShortestTime.message += $"{stop.Id} -> ";
-    
-        }
-        tram2BusPathShortestTime.message += $"{stopEndDistance:0.00}km \n";
+            
+
+
+        
 
 
         Message message = new Message("", 0.0);
@@ -265,28 +350,34 @@ public class FindWay
         if(passanger == Student.name)
         {
             foreach (var path in paths)
-            {
-                message = Student.scanCard(path.Cost, payment);
-                path.message += message.Log;
-                path.Cost = message.price;
+            {   
+                if(path.PathFound){
+                    message = Student.scanCard(path.Cost, payment);
+                    path.message += message.Log;
+                    path.Cost = message.price;
+                }
             }
         }
         else if(passanger == Elderly.name)
         {
             foreach (var path in paths)
             {
-                message = Elderly.scanCard(path.Cost, payment);
-                path.message += message.Log;
-                path.Cost = message.price;
+                if(path.PathFound){
+                    message = Elderly.scanCard(path.Cost, payment);
+                    path.message += message.Log;
+                    path.Cost = message.price;
+                }
             }
         }
         else
         {
             foreach (var path in paths)
-            {
-                message = Standart.scanCard(path.Cost, payment);
-                path.message += message.Log;
-                path.Cost = message.price;
+            {   
+                if(path.PathFound){
+                    message = Standart.scanCard(path.Cost, payment);
+                    path.message += message.Log;
+                    path.Cost = message.price;
+                }
             }
         }
         
@@ -300,17 +391,18 @@ public class FindWay
         //logMessage += $"En konforlu ulaşım için sadece taxi ile seyahat.\n({taxi.OpeningFee:0.00} + {totalDistance:0.00} * {taxi.CostPerKm:0.00} = {taxi.OpeningFee + (totalDistance * taxi.CostPerKm):0.00})\n\n";
 
 
-        double avarageSpeed = 40.00;    
+        double avarageSpeed = 40.00 / 60.00;    
         taxi2.Time = totalDistance / avarageSpeed;
         taxi2.Cost = taxi.OpeningFee + (totalDistance * taxi.CostPerKm);
         paths.Add(taxi2);
 
         foreach (var path in paths)
         {
-            path.message += $"\ntoplam Süre: ({path.Time:0.00} dk)\n";
-            logMessage += path.message;
-
-            logMessage += "\n\n";
+            if(path.PathFound){
+                path.message += $"\ntoplam Süre: ({path.Time:0.00} dk)\n";
+                logMessage += path.message;
+                logMessage += "\n\n";
+            }
         }
 
         //System.Console.WriteLine(logMessage);
@@ -320,8 +412,14 @@ public class FindWay
         System.IO.File.WriteAllText(logFilePath, $"{logMessage}\n");
 
         
-
-        return paths;
+        if(paths.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return paths;
+        }
 
         //int sayi;
         
