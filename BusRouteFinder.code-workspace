@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../PublicTransportation_In_Izmit/static"
+		},
+		{
+			"path": "../PublicTransportation_In_Izmit/templates"
+		}
+	],
+	"settings": {}
+}
