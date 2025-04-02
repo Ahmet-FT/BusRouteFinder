@@ -36,31 +36,26 @@ if (app.Environment.IsDevelopment())
 
 app.MapPost("/calculate", (RouteRequest data) =>
 {   
-    Console.WriteLine(data.start_lat);
+   
     FindWay find = new FindWay();
     
         
-    
+     Console.WriteLine(data.start_lat);
         
         
         List<PathResult2> response = find.FindRoutes(data.start_lat,data.start_lon, data.end_lat, data.end_lon, data.kullanici_tipi, "Kent Kart");// dönen değer List<PathResult2> listesi 
         
-    var result = response.Select(r => new
+     var result = new
     {
-        
-        
-        Path = r.Path.Select(p => new 
-        { 
-            p.Lat, 
-            p.Lon,
-            p.Name,
-            p.Id,
-        }).ToList(),
-        
-        
-    });
+        success = true,
+        data = response.Select(r => new
+        {
+            Path = r.Path.Select(p => new { p.Lat, p.Lon, p.Name, p.Id }).ToList(),
+           
+        }).ToList()
+    };
     
-        return Results.Json(new{result,});
+    return Results.Json(result);
         
     
     

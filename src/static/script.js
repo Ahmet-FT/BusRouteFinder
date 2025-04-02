@@ -52,12 +52,14 @@ function addStopsToMap(duraklar) {
     });
 }
 
+document.addEventListener('DOMContentLoaded', initializeMap);
+
 // Rota çizme fonksiyonu
 function drawRouteWithWaypoints(routeData) {
     // Önceki rotayı temizle
     clearRoute();
     
-    const firstRoute = routeData.result[0];
+    const firstRoute = routeData[0];
     const waypoints = firstRoute.path.map(point => [point.lat, point.lon]);
     const coordinates = waypoints.map(coord => `${coord[1]},${coord[0]}`).join(';');
     
@@ -72,9 +74,10 @@ function drawRouteWithWaypoints(routeData) {
             
             map.fitBounds(currentRouteLayer.getBounds());
             displayRouteDetails(routeData);
-            setTimeout
         })
         .catch(error => console.error('Rota çizilirken hata:', error));
+        
+
 }
 
 // Rota detaylarını göster
@@ -147,7 +150,9 @@ document.getElementById('resetButton').addEventListener('click', resetMap);
 
 document.getElementById('routeButton').addEventListener('click',async function(event) {
     event.preventDefault();
-    event.stopPropagation()
+    event.stopImmediatePropagation();
+
+
     const currentLocation = document.getElementById('currentLocation').value;
     const destination = document.getElementById('destination').value;
     
@@ -164,29 +169,26 @@ document.getElementById('routeButton').addEventListener('click',async function(e
     button.disabled = true;
     button.textContent = 'Rota Oluşturuluyor...';
     
-    fetch("http://localhost:5000/bus", {
+    fetch("http://localhost:5000/calculate", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' ,
+            'Accept': 'application/json'
+        },
         body: JSON.stringify({
             start_lat: startCoords[0],
             start_lon: startCoords[1],
             end_lat: endCoords[0],
             end_lon: endCoords[1],
-            kullanici_tipi: "ogrenci",
+            kullanici_tipi: "Ogrenci",
         }),
         credentials: 'omit'
     })
     .then(response => {
-        if (response.redirected) {
-            console.warn("API yönlendirme yapıyor!");
-            return response.text(); // Örnek amaçlı
-        }
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
     })
     .then(data => {
-        drawRouteWithWaypoints(data);
-        return data; // Rota verilerini döndür
+        drawRouteWithWaypoints(data.data);
+        
     })
     .catch(error => {
         console.error('Error:', error);
@@ -199,4 +201,3 @@ document.getElementById('routeButton').addEventListener('click',async function(e
 });
 
 // Sayfa yüklendiğinde haritayı başlat
-document.addEventListener('DOMContentLoaded', initializeMap);

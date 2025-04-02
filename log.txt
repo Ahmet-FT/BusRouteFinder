@@ -1,22 +1,34 @@
-Sadece otobüs kullanarak konumunuza ulaşabilirsiniz.
-2,02km -> bus_sekapark -> bus_41burda -> 5,33km 
-İşlem başarılı, Kent Kart indirimi kullanildi
-(3,5:0.00 * 0,9:0.00 = 3,15:0.00 tl)
-toplam Süre: (14,00 dk)
+Daha komforlu bir ulaşım için sadece tramvay kullanarak konumunuza ulaşabilirsiniz.
+başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10 + 5,3053034739428 * 4 = 31,22
+bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10 + 8,09725555965112 * 4 = 42,39
+5,31km -> tram_otogar -> tram_yahyakaptan -> tram_sekapark -> 8,10km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(4,50 * 0,75 * 0,90 = 3,04 tl)
+toplam Süre: (11,00 dk)
 
 
 Tramvaydan otobüse aktarma kullanmak isterseniz en ucuz yolu kullanabilirsiniz.
-1,55km -> tram_sekapark -> bus_sekapark -> bus_41burda -> 5,33km 
-İşlem başarılı, Kent Kart indirimi kullanildi
-(3,5:0.00 * 0,9:0.00 = 3,15:0.00 tl)
-toplam Süre: (17,00 dk)
+başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10 + 5,3053034739428 * 4 = 31,22
+bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10,00 + 7,63 * 4,00 = 40,54
+5,31km -> tram_otogar -> bus_otogar -> bus_sekapark -> 7,63km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(3,50 * 0,75 * 0,90 = 2,36 tl)
+toplam Süre: (12,00 dk)
 
 
 Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.
-1,55km -> tram_sekapark -> bus_sekapark -> bus_41burda -> 5,33km 
-İşlem başarılı, Kent Kart indirimi kullanildi
-(3,5:0.00 * 0,9:0.00 = 3,15:0.00 tl)
-toplam Süre: (17,00 dk)
+başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10 + 5,3053034739428 * 4 = 31,22
+bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
+10,00 + 7,63 * 4,00 = 40,54
+5,31km -> tram_otogar -> bus_otogar -> bus_sekapark -> 7,63km 
+İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
+(3,50 * 0,75 * 0,90 = 2,36 tl)
+toplam Süre: (12,00 dk)
 
 
 
