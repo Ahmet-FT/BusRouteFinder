@@ -100,9 +100,13 @@
                 <div>
                     <label>Kullanıcı Tipi:</label>
                     <select id="userProfile" style="width: 100%; margin-bottom: 10px;">
-                        <option value="Normal">Normal</option>
-                        <option value="Ogrenci">Öğrenci</option>
-                        <option value="Yasli">Yaşlı</option>
+                        <option value="Standart">Standart</option>
+                        <option value="Ogrenci">Ogrenci</option>
+                        <option value="Yasli">Yasli</option>
+                    </select>
+                    <select id="payment" style="width: 100%; margin-bottom: 10px;">
+                        <option value="Kredi Kart">Kredi Kart</option>
+                        <option value="Kent Kart">Kent Kart</option>
                     </select>
                 </div>
                 <button id="routeButton">Rota Oluştur</button>
@@ -137,6 +141,38 @@
         var currentRouteLayer = null;
         var stopMarkers = [];
         var alternativeRoutes = [];
+
+        var busIcon = L.icon({
+    iconUrl: '../static/assets/bus.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+var tramIcon = L.icon({
+    iconUrl: '../assets/tram.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+function initializeMap() {
+    fetch('../VeriSeti.json')
+        .then(response => response.json())
+        .then(data => addStopsToMap(data.duraklar))
+        .catch(error => console.error('Durak verileri yüklenirken hata:', error));
+}
+
+function addStopsToMap(duraklar) {
+    duraklar.forEach(stop => {
+        const icon = stop.type === 'bus' ? busIcon : tramIcon;
+        L.marker([stop.lat, stop.lon], { icon: icon })
+            .addTo(map)
+            .bindPopup(`<b>${stop.name}</b><br>Tip: ${stop.type}`);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initializeMap);
 
         // Haritaya tıklama olayı
         map.on('click', function(e) {
@@ -193,62 +229,103 @@
         });
 
         // Rota çizme fonksiyonu
-        function drawRoute(routeData) {
-            // Önceki rotayı temizle
-            clearRoute();
+        // Rota çizme fonksiyonu (güncellenmiş versiyon)
+function drawRoute(routeData) {
+    // Önceki rotayı temizle
+    clearRoute();
+
+    const currentLocation = document.getElementById('currentLocation').value;
+            const destination = document.getElementById('destination').value;
             
-            if (!routeData || !routeData.result || routeData.result.length === 0) {
-                alert("Rota bulunamadı!");
+            if (!currentLocation || !destination) {
+                alert('Lütfen başlangıç ve bitiş noktalarını seçin!');
                 return;
             }
             
-            // Ana rotayı çiz (ilk rota)
-            const mainRoute = routeData.result[0];
-            if (mainRoute.path && mainRoute.path.length > 0) {
-                const waypoints = mainRoute.path.map(point => [point.lat, point.lon]);
-                const routePolyline = L.polyline(waypoints, {
-                    color: '#e74c3c',
-                    weight: 5,
-                    opacity: 0.7
-                }).addTo(map);
-                currentRouteLayer = routePolyline;
-                
-                // Durak marker'larını ekle
-                mainRoute.path.forEach((stop, index) => {
-                    const stopMarker = L.marker([stop.lat, stop.lon], {
-                        icon: L.divIcon({
-                            className: 'stop-icon',
-                            html: `<div class="stop-marker">${index+1}</div>`,
-                            iconSize: [20, 20],
-                            iconAnchor: [10, 10]
-                        })
-                    }).addTo(map);
-                    
-                    stopMarker.bindPopup(`
-                        <b>${stop.name}</b><br>
-                        Tip: ${stop.id.includes('bus') ? 'Otobüs' : 'Tramvay'}
-                    `);
-                    
-                    stopMarkers.push(stopMarker);
-                });
-                
-                // Haritayı rotaya odakla
-                map.fitBounds(routePolyline.getBounds());
-            }
+            const startCoords = currentLocation.split(',').map(coord => parseFloat(coord.trim()));
+            const endCoords = destination.split(',').map(coord => parseFloat(coord.trim()));
+    
+    if (!routeData || !routeData.result || routeData.result.length === 0) {
+        alert("Rota bulunamadı!");
+        return;
+    }
+    
+    // Ana rotayı çiz (ilk rota)
+    const mainRoute = routeData.result[0];
+    if (mainRoute.path && mainRoute.path.length > 0) {
+        // Başlangıç ve bitiş noktalarını da ekleyerek tam rotayı oluştur
+        const waypoints = [
+            [startCoords[0], startCoords[1]] ,// Başlangıç
+            ...mainRoute.path.map(point => [point.lat, point.lon]),     // Duraklar
+            [endCoords[0], endCoords[1]] // Bitiş     
+        ];
+        
+        // Rota çizgisini oluştur
+        const routePolyline = L.polyline(waypoints, {
+            color: '#e74c3c',
+            weight: 5,
+            opacity: 0.7,
+            dashArray: '5, 5', // Kesikli çizgi efekti
+            lineJoin: 'round'
+        }).addTo(map);
+        currentRouteLayer = routePolyline;
+        
+        // Başlangıç ve bitiş marker'larını güncelle (daha belirgin hale getir)
+        startMarker.setIcon(L.divIcon({
+            className: 'start-marker',
+            html: '<div style="background-color: #2ecc71; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">A</div>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        }));
+        
+        endMarker.setIcon(L.divIcon({
+            className: 'end-marker',
+            html: '<div style="background-color: #e74c3c; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">B</div>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        }));
+        
+        // Durak marker'larını ekle (daha belirgin hale getir)
+        mainRoute.path.forEach((stop, index) => {
+            const stopMarker = L.marker([stop.lat, stop.lon], {
+                icon: L.divIcon({
+                    className: 'stop-icon',
+                    html: `<div style="background-color: #3498db; width: 22px; height: 22px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">${index+1}</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                })
+            }).addTo(map);
             
-            // Alternatif rotaları listele
-            displayAlternativeRoutes(routeData);
-        }
+            stopMarker.bindPopup(`
+                <b>${stop.name || 'Durak ' + (index+1)}</b><br>
+                <strong>Tip:</strong> ${stop.id.includes('bus') ? 'Otobüs' : 'Tramvay'}<br>
+                <strong>Sıra:</strong> ${index+1}/${mainRoute.path.length}
+            `);
+            
+            stopMarkers.push(stopMarker);
+        });
+        
+        // Haritayı rotaya odakla (biraz padding ekleyerek)
+        map.fitBounds(routePolyline.getBounds(), {
+            padding: [50, 50]
+        });
+        
+        // Rota üzerine mesafeyi yazdır
+        
+    }
+    
+    // Alternatif rotaları listele
+    displayAlternativeRoutes(routeData);
+}
 
         // Alternatif rotaları göster
         function displayAlternativeRoutes(routeData) {
+
+            
             const container = document.getElementById('routeDetailsContainer');
             container.innerHTML = '';
             
-            if (routeData.result.length <= 1) {
-                container.innerHTML = '<div class="route-info">Alternatif rota bulunamadı</div>';
-                return;
-            }
+            
             
             // Ana rota bilgileri
             const mainRoute = routeData.result[0];
@@ -259,6 +336,7 @@
                 <p><strong>Durak Sayısı:</strong> ${mainRoute.path.length}</p>
                 <p><strong>Toplam Mesafe:</strong> ${calculateRouteDistance(mainRoute.path).toFixed(2)} km</p>
                 <p><strong>Taşıma Türleri:</strong> ${getTransportTypes(mainRoute.path)}</p>
+                <p><strong>Açıklama:</strong> ${mainRoute.message}</p>
             `;
             container.appendChild(mainRouteInfo);
             
@@ -267,7 +345,7 @@
             alternativesHeader.textContent = 'Alternatif Rotalar';
             container.appendChild(alternativesHeader);
             
-            for (let i = 1; i < routeData.result.length; i++) {
+            for (let i = 0; i < routeData.result.length; i++) {
                 const route = routeData.result[i];
                 if (route.path && route.path.length > 0) {
                     const routeInfo = document.createElement('div');
@@ -277,7 +355,17 @@
                         <p><strong>Durak Sayısı:</strong> ${route.path.length}</p>
                         <p><strong>Toplam Mesafe:</strong> ${calculateRouteDistance(route.path).toFixed(2)} km</p>
                         <p><strong>Taşıma Türleri:</strong> ${getTransportTypes(route.path)}</p>
+                        <p><strong>Açıklama:</strong> ${route.message}</p>
                         <button class="show-alternative" data-index="${i}">Bu Rotayı Göster</button>
+                    `;
+                    container.appendChild(routeInfo);
+                }
+                else if (route.path.length === 0) {
+                    
+                    const routeInfo = document.createElement('div');
+                    routeInfo.className = 'route-info';
+                    routeInfo.innerHTML = `
+                        <p><strong>Açıklama:</strong> ${route.message}</p>
                     `;
                     container.appendChild(routeInfo);
                 }
@@ -295,9 +383,23 @@
         // Alternatif rotayı haritada göster
         function showAlternativeRoute(route) {
             clearRoute();
+            const currentLocation = document.getElementById('currentLocation').value;
+            const destination = document.getElementById('destination').value;
             
+            if (!currentLocation || !destination) {
+                alert('Lütfen başlangıç ve bitiş noktalarını seçin!');
+                return;
+            }
+            
+            const startCoords = currentLocation.split(',').map(coord => parseFloat(coord.trim()));
+            const endCoords = destination.split(',').map(coord => parseFloat(coord.trim()));
+
             if (route.path && route.path.length > 0) {
-                const waypoints = route.path.map(point => [point.lat, point.lon]);
+                const waypoints = [
+                [startCoords[0], startCoords[1]], // Başlangıç  
+                ...route.path.map(point => [point.lat, point.lon]),
+                [endCoords[0], endCoords[1]] // Bitiş
+                ]
                 const routePolyline = L.polyline(waypoints, {
                     color: '#3498db',
                     weight: 5,
@@ -401,7 +503,8 @@
                         start_lon: startCoords[1],
                         end_lat: endCoords[0],
                         end_lon: endCoords[1],
-                        kullanici_tipi: document.getElementById('userProfile').value
+                        kullanici_tipi: document.getElementById('userProfile').value,
+                        odeme_turu: document.getElementById('payment').value
                     })
                 });
                 
@@ -409,6 +512,7 @@
                 const data = await response.json();
                 
                 drawRoute(data);
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert('Rota oluşturulurken hata: ' + error.message);

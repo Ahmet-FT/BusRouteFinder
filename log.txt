@@ -1,34 +1,29 @@
-Daha komforlu bir ulaşım için sadece tramvay kullanarak konumunuza ulaşabilirsiniz.
-başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10 + 5,3053034739428 * 4 = 31,22
-bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10 + 8,09725555965112 * 4 = 42,39
-5,31km -> tram_otogar -> tram_yahyakaptan -> tram_sekapark -> 8,10km 
-İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
-(4,50 * 0,75 * 0,90 = 3,04 tl)
-toplam Süre: (11,00 dk)
+Otobüsten tramvaya aktarma kullanmak isterseniz en ucuz yolu kullanabilirsiniz.
+3,92km -> bus_otogar -> tram_otogar -> 3,94km 
+İşlem başarısız. 
+toplam Süre: (2,00 dk)
 
 
 Tramvaydan otobüse aktarma kullanmak isterseniz en ucuz yolu kullanabilirsiniz.
 başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10 + 5,3053034739428 * 4 = 31,22
-bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10,00 + 7,63 * 4,00 = 40,54
-5,31km -> tram_otogar -> bus_otogar -> bus_sekapark -> 7,63km 
-İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
-(3,50 * 0,75 * 0,90 = 2,36 tl)
-toplam Süre: (12,00 dk)
+10 + 3,9425623566959125 * 4 = 25,77
+3,94km -> tram_otogar -> bus_otogar -> 3,92km 
+İşlem başarısız. 
+toplam Süre: (2,00 dk)
+
+
+Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.
+3,92km -> bus_otogar -> tram_otogar -> 3,94km 
+İşlem başarısız. 
+toplam Süre: (2,00 dk)
 
 
 Otobüsten tramvaya aktarma kullanmak isterseniz en kısa zaman yolunu kullanabilirsiniz.
 başlangıç durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10 + 5,3053034739428 * 4 = 31,22
-bitiş durağı 3,00km den fazla olduğundan taxi kullanmalısınız
-10,00 + 7,63 * 4,00 = 40,54
-5,31km -> tram_otogar -> bus_otogar -> bus_sekapark -> 7,63km 
-İşlem başarılı, Ogrenci indirimi ve Kent Kart indirimi kullanildi
-(3,50 * 0,75 * 0,90 = 2,36 tl)
-toplam Süre: (12,00 dk)
+10 + 3,9425623566959125 * 4 = 25,77
+3,94km -> tram_otogar -> bus_otogar -> 3,92km 
+İşlem başarısız. 
+toplam Süre: (2,00 dk)
 
 
 

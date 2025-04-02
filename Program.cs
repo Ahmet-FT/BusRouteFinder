@@ -36,42 +36,18 @@ if (app.Environment.IsDevelopment())
 
 app.MapPost("/calculate", (RouteRequest data) =>
 {   
-   
+    Console.WriteLine(data.start_lat);
     FindWay find = new FindWay();
     
         
-     Console.WriteLine(data.start_lat);
+    
         
         
-        List<PathResult2> response = find.FindRoutes(data.start_lat,data.start_lon, data.end_lat, data.end_lon, data.kullanici_tipi, "Kent Kart");// dönen değer List<PathResult2> listesi 
-        
-     var result = new
-    {
-        success = true,
-        data = response.Select(r => new
-        {
-            Path = r.Path.Select(p => new { p.Lat, p.Lon, p.Name, p.Id }).ToList(),
-           
-        }).ToList()
-    };
-    
-    return Results.Json(result);
-        
-    
-    
-})
-.WithName("BusR")
-.WithOpenApi();
-
-app.MapPost("/bus", (RouteRequest data) =>
-{
-    
-    FindWay find = new FindWay();
-    
-        List<PathResult2> response = find.FindRoutes(data.start_lat,data.start_lon, data.end_lat, data.end_lon, data.kullanici_tipi, "Kent Kart");// dönen değer List<PathResult2> listesi 
+        List<PathResult2> response = find.FindRoutes(data.start_lat,data.start_lon, data.end_lat, data.end_lon, data.kullanici_tipi,data.odeme_turu);// dönen değer List<PathResult2> listesi 
         
     var result = response.Select(r => new
-    {   
+    {
+        r.message,
         
         Path = r.Path.Select(p => new 
         { 
@@ -79,15 +55,18 @@ app.MapPost("/bus", (RouteRequest data) =>
             p.Lon,
             p.Name,
             p.Id,
+           
         }).ToList(),
         
         
     });
-        return  new{result };
+    
+        return new{result};
+        
     
     
 })
-.WithName("BusRoute")
+.WithName("BusR")
 .WithOpenApi();
 
 
@@ -97,6 +76,7 @@ public record RouteRequest(
     double start_lon,
     double end_lat,
     double end_lon,
-    string kullanici_tipi
-    // string KartTuru = "Kent Kart"
+    string kullanici_tipi,
+    string odeme_turu 
+    // string KartTuru = "Kent Kart"
 );
