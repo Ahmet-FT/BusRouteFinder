@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seyahat Planlama</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="container">
+        <h1>Seyahat Planlama</h1>
+        <form id="travelForm" onsubmit="return false;">
+            <label for="startTime">Seyahat Başlangıç Zamanı:</label>
+            <input type="datetime-local" id="startTime" name="startTime" required>
+
+            <label for="currentLocation">Mevcut Konum:</label>
+            <input type="text" id="currentLocation" name="currentLocation" placeholder="Enlem, Boylam" required>
+
+            <label for="destination">Hedef Lokasyon:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enlem, Boylam" required>
+
+
+            <label for="userProfile">Kullanıcı Profili:</label>
+            <select id="userProfile" name="userProfile">
+                <option value="normal">Normal</option>
+                <option value="student">Öğrenci</option>
+                <option value="student">yaşlı</option>
+            </select>
+
+            <button type="button" id="routeButton">Rota Oluştur</button>
+            <button type="button" id="resetButton">Reset</button>
+        </form>
+
+        <div id="routeDetails" class="route-details">
+            <h2>Rota Detayları</h2>
+            <p id="estimatedTime">Tahmini Süre: -</p>
+            <p id="estimatedCost">Tahmini Maliyet: -</p>
+            <p id="transfers">Aktarmalar: -</p>
+        </div>
+    </div>
+    <div id="routeDetailsContainer" class="route-details-container">
+        <!-- Rota bilgileri burada dinamik olarak oluşturulacak -->
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="../static/script.js"></script>
+</body>
+</html>

@@ -34,3 +34,6 @@ D:\Prolab-II\1\BusRouteFinder\obj\Debug\net8.0\refint\BusRouteFinder.dll
 D:\Prolab-II\1\BusRouteFinder\obj\Debug\net8.0\BusRouteFinder.pdb
 D:\Prolab-II\1\BusRouteFinder\obj\Debug\net8.0\BusRouteFinder.genruntimeconfig.cache
 D:\Prolab-II\1\BusRouteFinder\obj\Debug\net8.0\ref\BusRouteFinder.dll
+D:\Prolab-II\1\BusRouteFinder\bin\Debug\net8.0\package-lock.json
+D:\Prolab-II\1\BusRouteFinder\bin\Debug\net8.0\package.json
+D:\Prolab-II\1\BusRouteFinder\bin\Debug\net8.0\src\static\VeriSeti.json

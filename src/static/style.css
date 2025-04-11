@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0f0f0f;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Rota bilgileri container'ı */
+.route-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Rota bilgileri arasındaki boşluk */
+    padding: 15px;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Yatay kaydırma için */
+}
+
+.route-info {
+    background-color: #202020;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.route-info h3 {
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.route-info p {
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+#map {
+    height: 800px;
+    width: 70%;
+    margin-left: 5%;
+}
+
+.container {
+    background-color: #1d1d1d;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: fit-content;
+    max-width: 400px;
+    
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+input, select, button {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #fafafa;
+    background-color: #1f1f1f;
+}
+
+button {
+    background-color: #16a738;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #30c951;
+}
+
+.route-details {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #161616;
+    border-radius: 4px;
+}
+
+.route-details h2 {
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.route-details p {
+    margin: 5px 0;
+    color: #ffffff;
+}

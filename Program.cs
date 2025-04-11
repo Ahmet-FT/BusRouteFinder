@@ -3,53 +3,80 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()   // Tüm origin'lere izin ver (http://localhost:5001 dahil)
+            .AllowAnyMethod()   // GET, POST, PUT, DELETE vb. tüm metodlara izin ver
+            .AllowAnyHeader();  // Tüm header'lara izin ver
+    });
+});
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors("AllowAll");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-//FindWay find = new FindWay();
-//find.FindRoutes(40.78259, 29.94628, 40.7716, 29.9601, "Ogrenci", "Kent Kart");
 
-app.MapGet("/Bus", () =>
-{
 
+
+app.MapPost("/calculate", (RouteRequest data) =>
+{   
+    Console.WriteLine(data.start_lat);
     FindWay find = new FindWay();
-    List<PathResult2> response = find.FindRoutes(40.78259, 29.94628, 40.7716, 29.9601, "Ogrenci", "Kent Kart");// dönen değer List<PathResult2> listesi 
-    /*
-    listenin içindeki nesneler Vehiclede tanımlı PathResult2 classı içinde
-    */
-    return response[0].Path[0].Id;
+    
+        
+    
+        
+        
+        List<PathResult2> response = find.FindRoutes(data.start_lat,data.start_lon, data.end_lat, data.end_lon, data.kullanici_tipi,data.odeme_turu);// dönen değer List<PathResult2> listesi 
+        
+    var result = response.Select(r => new
+    {
+        r.message,
+        
+        Path = r.Path.Select(p => new 
+        { 
+            p.Lat, 
+            p.Lon,
+            p.Name,
+            p.Id,
+           
+        }).ToList(),
+        
+        
+    });
+    
+        return new{result};
+        
+    
     
 })
-.WithName("GetWeatherForecast")
+.WithName("BusR")
 .WithOpenApi();
 
+
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-
-record Bus(string value)
-{
-    public string Value;
-}
+public record RouteRequest(
+    double start_lat  ,
+    double start_lon,
+    double end_lat,
+    double end_lon,
+    string kullanici_tipi,
+    string odeme_turu 
+    // string KartTuru = "Kent Kart"
+);
